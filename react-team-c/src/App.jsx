@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useState } from "react";
+import TodoHeader from "./components/TodoHeader";
+import TodoInput from "./components/TodoInput";
+import TodoList from "./components/TodoList";
 
-// 조회 기능 만들기
 function fetchTodos() {
   const result = [];
 
@@ -13,24 +15,17 @@ function fetchTodos() {
 }
 
 function App() {
-  const [inputText, setInputText] = useState('');
-  // const todos = fetchTodos();
   const [todos, setTodos] = useState(fetchTodos());
 
-  const handleInput = (e) => {
-    const value = e.target.value;
-    setInputText(value);
-  };
+  const addTodo = (todo) => {
+    localStorage.setItem(todo, todo);
 
-  const handleClick = () => {
-    localStorage.setItem(inputText, inputText);
-    // setInputText('');
     setTodos((currentTodos) => {
-      return [...currentTodos, inputText];
+      return [...currentTodos, todo];
     });
   };
 
-  const handleRemove = (todo, index) => {
+  const removeTodo = (todo) => {
     const result = todos.filter((todoItem) => {
       if (todoItem !== todo) {
         return true;
@@ -42,26 +37,9 @@ function App() {
 
   return (
     <>
-      <h1>ToDo App</h1>
-      <div>
-        <input type="text" value={inputText} onChange={handleInput} />
-        <button onClick={handleClick}>add</button>
-      </div>
-
-      <div>
-        <ul>
-          {todos.map((todo, index) => {
-            return (
-              <li key={index}>
-                <span>{todo}</span>
-                <button onClick={() => handleRemove(todo, index)}>
-                  remove
-                </button>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
+      <TodoHeader />
+      <TodoInput onTodoAdd={addTodo} />
+      <TodoList todos={todos} onTodoRemove={removeTodo} />
     </>
   );
 }
