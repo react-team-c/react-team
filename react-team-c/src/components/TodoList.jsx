@@ -1,17 +1,16 @@
-function TodoList({ todos, onTodoRemove }) {
+import TodoItem from "./TodoItem";
+
+function TodoList({ todos, onToggle, onRemove }) {
+  if (todos.length === 0) {
+    return <p>✨ 할 일 입력 바람</p>;
+  }
+
   return (
-    <div>
-      <ul>
-        {todos.map((todo, index) => {
-          return (
-            <li key={index}>
-              <span>{todo}</span>
-              <button onClick={() => onTodoRemove(todo, index)}>remove</button>
-            </li>
-          );
-        })}
-      </ul>
-    </div>
+    <ul className="todo-list">
+      {todos.map((todo) => (
+        <TodoItem key={todo.id} todo={todo} onToggle={onToggle} onRemove={onRemove} />
+      ))}
+    </ul>
   );
 }
 

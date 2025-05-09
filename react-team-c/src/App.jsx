@@ -1,46 +1,25 @@
-import { useState } from "react";
+import { useTodos } from "./hooks/useTodos";
+import { useFilter } from "./hooks/useFilter";
 import TodoHeader from "./components/TodoHeader";
 import TodoInput from "./components/TodoInput";
 import TodoList from "./components/TodoList";
-
-function fetchTodos() {
-  const result = [];
-
-  for (let i = 0; i < localStorage.length; i++) {
-    const value = localStorage.key(i);
-    result.push(value);
-  }
-
-  return result;
-}
+import TodoFilter from "./components/TodoFilter";
+import TodoStats from "./components/TodoStats";
 
 function App() {
-  const [todos, setTodos] = useState(fetchTodos());
+  const { todos, addTodo, removeTodo, toggleTodo } = useTodos();
+  const { filter, setFilter, filterTodos } = useFilter();
 
-  const addTodo = (todo) => {
-    localStorage.setItem(todo, todo);
-
-    setTodos((currentTodos) => {
-      return [...currentTodos, todo];
-    });
-  };
-
-  const removeTodo = (todo) => {
-    const result = todos.filter((todoItem) => {
-      if (todoItem !== todo) {
-        return true;
-      }
-    });
-    setTodos(result);
-    localStorage.removeItem(todo);
-  };
+  const filteredTodos = filterTodos(todos);
 
   return (
-    <>
+    <div className="todo-app">
       <TodoHeader />
       <TodoInput onTodoAdd={addTodo} />
-      <TodoList todos={todos} onTodoRemove={removeTodo} />
-    </>
+      <TodoStats todos={todos} />
+      <TodoFilter filter={filter} onFilterChange={setFilter} />
+      <TodoList todos={filteredTodos} onToggle={toggleTodo} onRemove={removeTodo} />
+    </div>
   );
 }
 
