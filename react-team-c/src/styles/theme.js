@@ -172,6 +172,7 @@ export const Button = styled.button`
     cursor: pointer;
     transition: all 0.2s ease;
     font-weight: ${({ isActive }) => (isActive ? '600' : '400')};
+    text-decoration:${({isActive}) => (isActive ? 'underline':null)};
 
     &:hover {
         background-color: ${({ variant }) => getVariantColor(variant, true)};

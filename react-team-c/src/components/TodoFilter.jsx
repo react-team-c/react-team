@@ -15,37 +15,27 @@ const ButtonGroup = styled.div`
 
 const FilterBtn = styled(Button)`
     font-size: ${theme.fontSize.small};
+    
 `;
+
 
 function TodoFilter({ filter, onFilterChange, todos }) {
     const totalTodos = todos.length;
     const completedTodos = todos.filter((todo) => todo.completed).length;
     const activeTodos = totalTodos - completedTodos;
 
+    const FILTER_TYPE = [
+        {id: 1, name:'전체',state:'all', amount: totalTodos},
+        {id: 2, name:'미완료',state:'active', amount: activeTodos},
+        {id: 3, name:'완료',state:'completed', amount: completedTodos},
+    ]
+
     return (
         <FilterContainer>
             <ButtonGroup>
-                <FilterBtn
-                    isActive={filter === 'all'}
-                    variant="secondary"
-                    onClick={() => onFilterChange('all')}
-                >
-                    전체: {totalTodos}
-                </FilterBtn>
-                <FilterBtn
-                    isActive={filter === 'active'}
-                    variant="secondary"
-                    onClick={() => onFilterChange('active')}
-                >
-                    미완료: {activeTodos}
-                </FilterBtn>
-                <FilterBtn
-                    isActive={filter === 'completed'}
-                    variant="secondary"
-                    onClick={() => onFilterChange('completed')}
-                >
-                    완료: {completedTodos}
-                </FilterBtn>
+                {FILTER_TYPE.map(({id, name, state, amount}) => (
+                    <FilterBtn key={id} variant="secondary" isActive={filter === state} onClick={() => onFilterChange(state)}>{name}: {amount} </FilterBtn>
+                ))}           
             </ButtonGroup>
         </FilterContainer>
     );

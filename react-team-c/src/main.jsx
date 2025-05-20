@@ -32,9 +32,9 @@ function AppLayout() {
 
     return (
         <>
-            <ThemeToggle onClick={toggleTheme} isDarkMode={isDarkMode}>
+            {/* <ThemeToggle onClick={toggleTheme} isDarkMode={isDarkMode}>
                 {isDarkMode ? '☀️' : '🌙'}
-            </ThemeToggle>
+            </ThemeToggle> */}
             <TodoAppContent />
         </>
     );

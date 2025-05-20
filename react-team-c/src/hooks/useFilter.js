@@ -14,5 +14,6 @@ export function useFilter() {
     }
   };
 
+  
   return { filter, setFilter, filterTodos };
 }
