@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { TodoProvider } from './design-system/shared/contexts';
-import { TodoHeader, TodoForm, TodoFilter, TodoList } from './design-system';
+import { TodoProvider } from './conponents/shared/contexts';
+import { TodoHeader, TodoForm, TodoFilter, TodoList } from './conponents';
 
 const TodoApp = styled.section`
     width: 600px;

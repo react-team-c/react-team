@@ -1,7 +1,7 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { ThemeProvider } from './design-system/shared/contexts';
-import { GlobalStyle, AppLayout } from './design-system';
+import { ThemeProvider } from './conponents/shared/contexts';
+import { GlobalStyle, AppLayout } from './conponents';
 
 const root = createRoot(document.getElementById('root'));
 root.render(
